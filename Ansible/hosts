@@ -1,0 +1,2 @@
+[webserver]
+192.168.68.106 ansible_user=vboxuser ansible_ssh_private_key_file=~/.ssh/id_rsa
