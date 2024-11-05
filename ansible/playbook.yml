@@ -1,0 +1,39 @@
+---
+- name: Set up web server
+  hosts: myvm
+  become: true
+  vars:
+    doc_root: /var/www/html
+  tasks:
+    - name: Install git
+      apt:
+        name: git
+        state: present
+
+    - name: Install apache2
+      apt:
+        name: apache2
+        state: present
+
+    - name: Install net-tools
+      apt:
+        name: net-tools
+        state: present
+
+    - name: Start and enable apache2
+      service:
+        name: apache2
+        state: started
+        enabled: true
+
+    - name: Create engaging index.html
+      copy:
+        dest: "{{ doc_root }}/index.html"
+        content: |
+          <html>
+          <head><title>My Engaging Website</title></head>
+          <body>
+            <h1>Welcome to My Engaging Website!</h1>
+            <p>This is a simple Ansible-deployed web page on Apache.</p>
+          </body>
+          </html>
