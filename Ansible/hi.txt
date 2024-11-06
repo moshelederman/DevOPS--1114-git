@@ -5,3 +5,4 @@ another new line
 test use in vs code
 the last line
 save the changes
+line in bash
