@@ -2,8 +2,3 @@ hiiiiiiiiiiiiiiii
 a newline
 another new line
 23:46 aclock
-test use in vs code
-the last line
-save the changes
-line in bash
-I want to delete 5 lines
