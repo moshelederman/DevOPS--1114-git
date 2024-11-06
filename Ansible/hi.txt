@@ -6,3 +6,4 @@ test use in vs code
 the last line
 save the changes
 line in bash
+I want to delete 5 lines
