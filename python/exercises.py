@@ -1,0 +1,123 @@
+#exerice 1
+age = 29
+name = "Moshe Lederman"
+
+print (f"hellow {name}! your age is {age} !")
+
+#exerice 2
+x = 10
+y = 5
+sum = x + y
+print("Sum:", sum)              
+print("Subtraction:", x - y)     
+print("Multiplication:", x * y)  
+print("Division:", x / y)        
+
+#exerice 3
+a = 3
+b = 7
+a, b = b, a
+print(a)
+print(b)
+
+#exerice 4
+length = 100
+wideth = 100
+print("area:", length * wideth)  
+  
+
+#exerice 5
+
+greeting = 'Hello, world!'
+print(len(greeting))
+
+#exerice 6
+firs_name = "MOSHE"
+last_name = "LEDERMAN"
+full_name = firs_name + ' ' + last_name
+print(full_name)
+
+#exerice 7
+age = 29
+name = "Moshe Lederman"
+
+print (f"My name is {name} and I am {age} years old !")
+
+#exerice 8
+
+quote = "to be or not to be, that is the question"
+print(quote.upper())
+
+#exerice 9
+
+word = "Python"
+print(word[0:3])
+print(word[-3:])
+print(word[::-1])
+
+#exerice 10
+sentence = " I love programming in Python"
+newsentence = sentence.replace("Python", "Bash")
+print(newsentence)
+
+#exerice 11
+
+text = "the quick brown fox jump over the lazy dog"
+if "fox" in text:
+    print("True")
+if "fox" in text:
+    print(True) 
+
+#exerice 12   
+
+fruits = ["apple", "banana", "cherry"]
+fruits.append("kiwi")
+print(fruits)
+fruits.remove("apple")
+print(fruits)
+
+#exerice 13
+animals = ['cat', 'dog', 'rabbit', 'hamster']
+print(animals[0])
+print(animals[-1])
+print(len(animals))
+
+#exerice 14
+numbers = [5, 10, 15, 20, 25]
+numbers[1] = 12
+print(numbers)
+numbers.append(30)
+print(numbers)
+numbers.remove(30)
+print(numbers)
+
+#exerice 15
+ten_numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+print(ten_numbers[:5])
+print(ten_numbers[-3:])
+print(ten_numbers[::-1])
+
+#exerice 16
+five_numbers = [1, 2, 3, 4, 5]
+squares = [num ** 2 for num in five_numbers]
+print(squares) 
+
+#exerice 17
+Ifruits = ['apple', 'banana', 'apple', 'orange', 'banana', 'apple']
+apple_count = Ifruits.count('apple')
+print(apple_count)
+
+#exerice 18
+
+colors = ['red', 'blue', 'green', 'yellow', 'blue']
+first_index = colors.index('blue')
+print(first_index)
+
+#exerice 19
+list1 = [1, 2, 3]
+list2 = [4, 5, 6]
+list3 = list1 + list2
+print(list3)
+
+#exerice 20
+enumbers = [1, 2, 2, 3, 4, 2]
