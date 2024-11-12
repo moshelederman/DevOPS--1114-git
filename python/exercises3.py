@@ -109,8 +109,84 @@ hello_fun()
 
 #14
 def nane_fun(name):
-    print(f"Hello, {name} !")
-nane_fun()
+    print(f"Hello, {name}!")
+nane_fun("MOSHE")
+nane_fun("PNINA")
+nane_fun("SHULAMIT_RINA")
+
+#15
+def squer_fun(x):
+    return x ** 2
+print(squer_fun(9)) 
+
+#16
+def factorial_fun(n):
+    result = 1
+    for i in range(1, n + 1):
+        result *= i
+    
+    return result
+number = 5
+print(f"The factorial of {number} is {factorial_fun(number)}")
+
+#17 
+
+def find_max(*n):
+    numbers = sorted(n)
+    max_n = numbers[-1]
+    print(max_n)
+
+find_max(1, 5, 3, 9, 2) 
+
+#18
+def celsius_to_fahrenheit(c):
+    fahrenheit = (9 / 5 * c) + 32 
+    print(fahrenheit)
+
+celsius_to_fahrenheit(0)    
+celsius_to_fahrenheit(20) 
+celsius_to_fahrenheit(100) 
+
+#19
+def is_palindrome(word):
+    word = word.lower()
+    return word == word[::-1]
+    
+print(is_palindrome("racecar"))
+print(is_palindrome("hello"))
+
+#20
+def sum_list(*lst):
+    total = 0
+    for i in lst:
+        total += i
+    return total
+print(sum_list(10, 20 ,30 ,40))
+
+#21
+def is_prime(number):
+    if number < 2:
+        return False
+    for i in range(2, int(number ** 0.5) + 1):
+        if number % i == 0:
+            return False
+    return True
+print(is_prime(7)) 
+print(is_prime(10))  
+print(is_prime(13)) 
+
+#22
+def function_calculator(a, b, operation):
+    qqq = ( "a","operation","b")
+print(function_calculator("2", "3", "*"))    
+
+
+
+    
+
+
+ 
+
 
 
 
