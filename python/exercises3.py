@@ -177,10 +177,24 @@ print(is_prime(13))
 
 #22
 def function_calculator(a, b, operation):
-    qqq = ( "a","operation","b")
-print(function_calculator("2", "3", "*"))    
-
-
+    if operation == "add":
+        return a + b
+    if operation == "subtract":
+        return a - b
+    if operation == "multiply":
+        return a * b
+    if operation == "divide":
+        if b != 0:
+            return a / b
+        else:
+            return "ERROR,DIVISION BY ZERO"
+    else:
+        return "Error, invalid opreation"                                       
+ 
+print(function_calculator(2, 3, "add"))
+print(function_calculator(2, 3, "subtract"))     
+print(function_calculator(2, 3, "multiply")) 
+print(function_calculator(2, 3, "divide")) 
 
     
 
