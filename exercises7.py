@@ -7,25 +7,41 @@ class Book:
         self.title = title
         self.author = author
         self.copies = copies
-def __str__(self):
-    return f"Title: {self.title}, Author: {self.author}, Copies: {self.copies}"
+    def __str__(self):
+        return f"Title: {self.title}, Author: {self.author}, Copies: {self.copies}"
 
 class Library:
     def __init__(self):
         self.books = []
 
-def add_book(self, book):
-    self.books.append(book)
+    def add_book(self, book):
+        self.books.append(book)
 
-def list_books(self):
-    for book in self.books:
-        print(book)
+    def list_books(self):
+        for book in self.books:
+            print(book)
+
+    def __str__(self):
+        return str(self.books)
+
+    def find_book_by_title(self, title):
+        for book in self.books:
+            if book.title == title:
+                return book
+        return None
 
 # Example Usage
 library = Library()
 library.add_book(Book("Python 101", "John Doe", 3))
 library.add_book(Book("Data Science Handbook", "Jane Smith", 5))
 library.list_books()
+
+
+found_book = library.find_book_by_title("moshe 101")
+if found_book:
+    print(f"Book found: {found_book}")
+else:
+    print("Book not found")    
 
 #Questions:
 #1. Classes and Attributes:
@@ -42,8 +58,12 @@ library.list_books()
 
 #3. Behavior Analysis:
 #- What is the output of the `list_books` method after the books are added?
-#A 
+#A the output of the `list_books` method after the books are added is:
+#  Title: Python 101, Author: John Doe, Copies: 3
+#  Title: Data Science Handbook, Author: Jane Smith, Copies: 5
 #- What happens if you call `add_book` with a new book object?
-
+#A the new book object add to the list of books' when i call `list_books` method it will apear.
+#  
 #4. Code Change:
 #- If you wanted to add a method to find a book by title in the library, how would you do it?
+#A I write the new method up. 
