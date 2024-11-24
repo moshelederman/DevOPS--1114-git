@@ -8,6 +8,10 @@ app = Flask(__name__)
 def hello_world():
     return "<p>Hello, World!</p>"
 
+@app.route("/new")
+def new_change():
+    return "<p>New change to Docker!</p>"
+
 @app.route("/greet/<name>")
 def greet_fun(name):
     return f"<p>Hello, {name}!</p>"
