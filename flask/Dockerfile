@@ -2,7 +2,7 @@
 FROM python:3.8-slim
 
 # הגדר משתנה סביבה שיבטיח שפלט יועבר ישר (מונע caching)
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONUNBUFFERED=1
 
 # צור ספריית עבודה לאפליקציה
 WORKDIR /app
