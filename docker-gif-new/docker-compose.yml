@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  db:
+    image: mysql:5.7
+    container_name: docker-gif-db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: testdb
+    networks:
+      - app_network
+
+  app:
+    build: .
+    container_name: docker-gif-app
+    depends_on:
+      - db
+    environment:
+      - FLASK_ENV=development
+    ports:
+      - "5000:5000"
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
