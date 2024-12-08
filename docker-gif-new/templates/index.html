@@ -1,27 +1,20 @@
-<html>
-  <head>
-    <style type="text/css">
-      body {
-        background: black;
-        color: white;
-      }
-      div.container {
-        max-width: 500px;
-        margin: 100px auto;
-        border: 20px solid white;
-        padding: 10px;
-        text-align: center;
-      }
-      h4 {
-        text-transform: uppercase;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <h4>Cat Gif of the day</h4>
-      <img src="{{url}}" />
-      <p><small>Courtesy: <a href="http://www.buzzfeed.com/copyranter/the-best-cat-gif-post-in-the-history-of-cat-gifs">Buzzfeed</a></small></p>
-    </div>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Images</title>
+</head>
+<body>
+    <h1>Image Gallery</h1>
+    {% if images %}
+        <ul>
+            {% for image in images %}
+                <li><img src="{{ image }}" alt="Image" style="max-width: 200px;"></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No images available.</p>
+    {% endif %}
+</body>
 </html>
