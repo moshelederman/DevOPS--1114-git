@@ -1,24 +1,24 @@
-version: "3.9"
-
 services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: docker-gif-app
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    networks:
+      - app_network
+
   db:
     image: mysql:5.7
     container_name: docker-gif-db
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: testdb
-    networks:
-      - app_network
-
-  app:
-    build: .
-    container_name: docker-gif-app
-    depends_on:
-      - db
-    environment:
-      - FLASK_ENV=development
     ports:
-      - "5000:5000"
+      - "3308:3308"
     networks:
       - app_network
 
