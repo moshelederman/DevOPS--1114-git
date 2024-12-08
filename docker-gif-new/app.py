@@ -1,13 +1,12 @@
 from flask import Flask, render_template, jsonify
 import os
 import mysql.connector
-import random
 
 app = Flask(__name__)
 
 # הגדרות מסד הנתונים
 db_config = {
-    'host': os.getenv('MYSQL_HOST', 'localhost'),
+    'host': os.getenv('MYSQL_HOST', 'docker-gif-db'),
     'user': os.getenv('MYSQL_USER', 'root'),
     'password': os.getenv('MYSQL_PASSWORD', 'example'),
     'database': os.getenv('MYSQL_DB', 'testdb')
@@ -21,7 +20,7 @@ def display_images():
         cursor = cnx.cursor()
 
         # שאילתת ה-SQL לשליפת התמונות
-        query = "SELECT url FROM images"
+        query = "SELECT image_url FROM images"  # ודא שהעמודה נקראת image_url ולא url
         cursor.execute(query)
 
         # קבלת רשימת ה-URLs של התמונות
@@ -46,7 +45,6 @@ def display_images():
     except Exception as e:
         # טיפול בשגיאות כלליות
         return jsonify({"error": f"Unexpected error: {e}"}), 500
-
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
