@@ -22,15 +22,23 @@ def display_images():
         cnx = mysql.connector.connect(**db_config)
         cursor = cnx.cursor()
 
-        # שאילתת ה-SQL לשליפת התמונות
-        query = "SELECT image_url FROM images"  # ודא שהעמודה נקראת image_url ולא url
+        # עדכון מונה המבקרים 
+        print("Updating visitor count...")
+        cursor.execute("UPDATE visitors SET visit_count = visit_count + 1 WHERE id = 1")
+        cnx.commit()
+
+        # שאילתת ה-SQL לשליפת המונה והתמונות 
+        
+        cursor.execute("SELECT visit_count FROM visitors WHERE id = 1")
+        visit_count = cursor.fetchone()[0]
+        print(f"Visitor count updated to: {visit_count}")
+        
+        query = "SELECT image_url FROM images"
         cursor.execute(query)
-
-        # קבלת רשימת ה-URLs של התמונות
         result = cursor.fetchall()
-        images = [row[0] for row in result]  # עיבוד התוצאות לרשימה פשוטה
-
-        # סגירת ההתחברות למסד הנתונים
+        images = [row[0] for row in result]
+        
+        # סגירת ההתחברות למסד הנתונים 
         cursor.close()
         cnx.close()
 
@@ -39,7 +47,7 @@ def display_images():
             return jsonify({"message": "No images found in the database."}), 404
 
         # העברת ה-URLs לתבנית להציג אותם
-        return render_template('index.html', images=images)
+        return render_template('index.html', images=images, visit_count=visit_count)
 
     except mysql.connector.Error as err:
         # טיפול בשגיאות של MySQL
@@ -50,4 +58,5 @@ def display_images():
         return jsonify({"error": f"Unexpected error: {e}"}), 500
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    port = int(os.getenv("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
