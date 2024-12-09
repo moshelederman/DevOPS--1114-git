@@ -4,12 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Random Image Gallery</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        p {
+            margin-bottom: 40px;
+        }
+        img {
+            max-width: 80%;
+            height: auto;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+    </style>
 </head>
 <body>
-    <h1>Random Image Gallery</h1>
+    <h1>!תמונת היום</h1>
     <p>Visitor Count: {{ visit_count }}</p>
     {% if image_url %}
-        <img src="{{ image_url }}" alt="Random Image" style="max-width: 500px;">
+        <img src="{{ image_url }}" alt="Random Image">
     {% else %}
         <p>No image available.</p>
     {% endif %}
