@@ -1,15 +1,18 @@
 from flask import Flask, render_template, jsonify
 import os
 import mysql.connector
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
 # הגדרות מסד הנתונים
 db_config = {
-    'host': os.getenv('MYSQL_HOST', 'docker-gif-db'),
-    'user': os.getenv('MYSQL_USER', 'root'),
-    'password': os.getenv('MYSQL_PASSWORD', 'example'),
-    'database': os.getenv('MYSQL_DB', 'testdb')
+    'host': os.getenv('MYSQL_HOST'),
+    'user': os.getenv('MYSQL_USER'),
+    'password': os.getenv('MYSQL_PASSWORD'),
+    'database': os.getenv('MYSQL_DB')
 }
 
 @app.route('/')
