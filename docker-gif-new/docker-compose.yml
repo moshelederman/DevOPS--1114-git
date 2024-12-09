@@ -2,9 +2,7 @@ version: '3.8'
 
 services:
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: moshelederman/docker-gif-app:latest
     container_name: docker-gif-app
     ports:
       - "${PORT}:${PORT}"
@@ -15,7 +13,7 @@ services:
     
 
   db:
-    image: mysql:8.0
+    image: moshelederman/docker-gif-db:latest
     container_name: docker-gif-db
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
