@@ -2,15 +2,11 @@ version: '3.8'
 
 services:
   app:
-<<<<<<< HEAD
     image: moshelederman/stars:1.0.0
     build:
       context: .
       dockerfile: Dockerfile
-=======
-    image: moshelederman/docker-gif-app:latest
->>>>>>> f3b94327c5cde89413151208e57bca6e7ed40638
-    container_name: docker-gif-app
+      container_name: docker-gif-app
     ports:
       - "${PORT}:${PORT}"
     depends_on:
