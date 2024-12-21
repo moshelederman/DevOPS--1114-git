@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   app:
-    image: moshelederman/stars:1.0.0
+    image: moshelederman/docker-gif-app
     build:
       context: .
       dockerfile: Dockerfile
