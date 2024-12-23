@@ -3,6 +3,8 @@ import os
 import mysql.connector
 from dotenv import load_dotenv
 
+#new changes
+
 # טעינת משתני הסביבה מקובץ .env
 load_dotenv()
 
@@ -55,5 +57,3 @@ if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
 
-#app check
-#more line change
