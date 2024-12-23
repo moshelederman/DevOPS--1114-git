@@ -2,7 +2,7 @@ from flask import Flask, render_template, jsonify
 import os
 import mysql.connector
 from dotenv import load_dotenv
-# check jenkins
+
 # טעינת משתני הסביבה מקובץ .env
 load_dotenv()
 
