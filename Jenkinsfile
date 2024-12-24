@@ -38,6 +38,12 @@ pipeline {
                 }
             }
         }
+        stage('Sleep') {
+            steps {
+                echo 'Sleeping for 20 seconds...'
+                sleep 20
+            }
+        }
         stage('Test') {
             steps {
                 echo 'Running tests...'
