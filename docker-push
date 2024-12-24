@@ -1,0 +1,45 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/moshelederman/DevOPS--1114-git.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'Building Docker image...'
+                sh 'docker build -t your_dockerhub_username/your_image_name:tag .'
+            }
+        }
+        stage('Login to Docker Hub') {
+            steps {
+                echo 'Logging in to Docker Hub...'
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            }
+        }
+        stage('Push to Docker Hub') {
+            steps {
+                echo 'Pushing Docker image to Docker Hub...'
+                sh 'docker push your_dockerhub_username/your_image_name:tag'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+                sh 'curl http://localhost:5000'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying...'
+                // הוספת שלבי פריסה כאן
+            }
+        }
+    }
+}
