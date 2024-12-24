@@ -33,11 +33,20 @@ pipeline {
                         'MYSQL_USER=user',
                         'MYSQL_PASSWORD=example'
                     ]) {
-                        sh 'docker-compose up --build -d --pull always'
-                    }
-                }
+                        sh '''
+                    # הורדת קונטיינרים קיימים והסרת נתוני volume
+                    docker-compose down -v
+                    
+                    # משיכת התמונות העדכניות ביותר
+                    docker-compose pull
+                    
+                    # בנייה והרצה של הקונטיינרים
+                    docker-compose up --build -d --pull always
+                '''
             }
         }
+    }
+}
         stage('Sleep') {
             steps {
                 echo 'Sleeping for 20 seconds...'
