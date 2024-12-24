@@ -33,7 +33,7 @@ pipeline {
                         'MYSQL_USER=user',
                         'MYSQL_PASSWORD=example'
                     ]) {
-                        sh 'docker-compose up --build -d'
+                        sh 'docker-compose up --build -d --pull always'
                     }
                 }
             }
