@@ -41,7 +41,7 @@ pipeline {
                     docker-compose pull
                     
                     # בנייה והרצה של הקונטיינרים
-                    docker-compose up --build -d --pull always
+                    docker-compose up --build -d
                 '''
             }
         }
