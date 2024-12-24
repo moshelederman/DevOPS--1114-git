@@ -41,13 +41,13 @@ pipeline {
         stage('Sleep') {
             steps {
                 echo 'Sleeping for 20 seconds...'
-                sleep 19
+                sleep 20
             }
         }
         stage('Test') {
             steps {
                 echo 'Running tests...'
-                sh 'curl http://localhost:5000'  // תיקון הכתובת
+                sh 'curl http://localhost:5000'  
             }
         }
         stage('Deploy') {
