@@ -41,8 +41,8 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Running tests...'
-                sh 'curl http:localhost:5000'
-            }            }
+                sh 'curl http://localhost:5000'  // תיקון הכתובת
+            }
         }
         stage('Deploy') {
             steps {
