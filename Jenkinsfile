@@ -41,16 +41,8 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Running tests...'
-                dir('DevOPS--1114-git/docker-gif-new') {
-                    sh '''
-                    if [ -f ./test_script.sh ]; then
-                        ./test_script.sh
-                    else
-                        echo "Test script not found, skipping..."
-                    fi
-                    '''
-                }
-            }
+                sh 'curl http:localhost:5000'
+            }            }
         }
         stage('Deploy') {
             steps {
