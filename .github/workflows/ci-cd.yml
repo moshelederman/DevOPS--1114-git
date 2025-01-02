@@ -21,12 +21,13 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+     
       # Step 3: Build the Docker Image
       - name: Build Docker Image
         run: |
           IMAGE_NAME=moshelederman/python-weather-app
           BUILD_NUMBER=${{ github.run_number }}
-          docker build -t $IMAGE_NAME:latest -t $IMAGE_NAME:0.0.$BUILD_NUMBER .
+          docker build -t $IMAGE_NAME:latest -t $IMAGE_NAME:0.0.$BUILD_NUMBER -f "Weather App/Dockerfile" .
 
       # Step 4: Push the Docker Image (only for main branch)
       - name: Push Docker Image
