@@ -3,7 +3,7 @@ name: CI/CD Pipeline for Weather App
 on:
   push:
     branches:
-      - "**"  # Trigger for all branches
+      - main  # Trigger for all branches
 
 jobs:
   build:
