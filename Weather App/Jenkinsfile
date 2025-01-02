@@ -1,0 +1,73 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_IMAGE = 'your_dockerhub_username/python-weather-app'
+        GIT_BRANCH = env.BRANCH_NAME
+        BUILD_NUMBER_TAG = "0.0.${BUILD_NUMBER}"
+        DOCKER_CREDENTIALS = 'docker-hub-credentials-id' // Add this in Jenkins credentials
+        GITHUB_CREDENTIALS = 'github-credentials-id'    // Add this in Jenkins credentials
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                git branch: "${GIT_BRANCH}",
+                    url: 'https://github.com/your_username/your_repository.git',
+                    credentialsId: "${GITHUB_CREDENTIALS}"
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh """
+                    docker build -t ${DOCKER_IMAGE}:latest -t ${DOCKER_IMAGE}:${BUILD_NUMBER_TAG} .
+                    """
+                }
+            }
+        }
+
+        stage('Push Docker Image') {
+            when {
+                branch 'main'
+            }
+            steps {
+                script {
+                    withDockerRegistry([credentialsId: "${DOCKER_CREDENTIALS}", url: 'https://index.docker.io/v1/']) {
+                        sh """
+                        docker push ${DOCKER_IMAGE}:latest
+                        docker push ${DOCKER_IMAGE}:${BUILD_NUMBER_TAG}
+                        """
+                    }
+                }
+            }
+        }
+
+        stage('Create Merge Request') {
+            when {
+                not { branch 'main' }
+            }
+            steps {
+                script {
+                    sh """
+                    echo "Creating a merge request to main branch..."
+                    # You can integrate GitHub CLI (gh) or use GitHub API for creating merge requests
+                    """
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo "Pipeline completed."
+        }
+        success {
+            echo "Build and deployment succeeded."
+        }
+        failure {
+            echo "Build or deployment failed."
+        }
+    }
+}
