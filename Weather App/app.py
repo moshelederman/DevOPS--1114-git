@@ -13,7 +13,7 @@ def index():
     weather_data = {}
     winter_facts = [
         "Snowflakes can take up to an hour to fall from a cloud to the ground.",
-        "The record for the most snow in a single 24-hour period is 75.8 inches.",
+        "The record for the most snow in a single 24-hour period is 192.5 cm inches.",
         "Winter solstice is the shortest day of the year.",
         "Some animals hibernate to survive the cold months."
     ]
