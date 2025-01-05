@@ -34,13 +34,11 @@ pipeline {
                         'MYSQL_PASSWORD=example'
                     ]) {
                         sh '''
-                    # הורדת קונטיינרים קיימים והסרת נתוני volume
+                  
                     docker-compose down -v
-                    
-                    # משיכת התמונות העדכניות ביותר
+                               
                     docker-compose pull
                     
-                    # בנייה והרצה של הקונטיינרים
                     docker-compose up --build -d
                 '''
             }
