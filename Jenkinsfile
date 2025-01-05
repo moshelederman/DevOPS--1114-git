@@ -5,60 +5,48 @@ pipeline {
         pollSCM('* * * * *')  // Poll SCM every minute
     }
 
-
-
-    stage('Build') {
-    steps {
-        echo 'Building the project...'
-        dir('DevOPS--1114-git/docker-gif-new') {
-            withCredentials([string(credentialsId: 'MYSQL_ROOT_PASSWORD', variable: 'MYSQL_ROOT_PASSWORD'),
-                             string(credentialsId: 'MYSQL_DATABASE', variable: 'MYSQL_DATABASE'),
-                             string(credentialsId: 'MYSQL_USER', variable: 'MYSQL_USER'),
-                             string(credentialsId: 'MYSQL_PASSWORD', variable: 'MYSQL_PASSWORD')]) {
-                withEnv([
-                    "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}",
-                    "MYSQL_DATABASE=${MYSQL_DATABASE}",
-                    "MYSQL_USER=${MYSQL_USER}",
-                    "MYSQL_PASSWORD=${MYSQL_PASSWORD}"
-                ]) {
-                    sh '''
-                        docker-compose down -v
-                        docker-compose pull
-                        docker-compose up --build -d
-                    '''
-                }
+    stages {
+        stage('Cleanup') {
+            steps {
+                echo 'Cleaning up before cloning code...'
+                sh 'rm -rf DevOPS--1114-git'
             }
         }
-    }
-}
-
-   
-        stage('Build') {
-    steps {
-        echo 'Building the project...'
-        dir('DevOPS--1114-git/docker-gif-new') {
-            withCredentials([string(credentialsId: 'MYSQL_ROOT_PASSWORD', variable: 'MYSQL_ROOT_PASSWORD'),
-                             string(credentialsId: 'MYSQL_DATABASE', variable: 'MYSQL_DATABASE'),
-                             string(credentialsId: 'MYSQL_USER', variable: 'MYSQL_USER'),
-                             string(credentialsId: 'MYSQL_PASSWORD', variable: 'MYSQL_PASSWORD')]) {
-                withEnv([
-                    "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}",
-                    "MYSQL_DATABASE=${MYSQL_DATABASE}",
-                    "MYSQL_USER=${MYSQL_USER}",
-                    "MYSQL_PASSWORD=${MYSQL_PASSWORD}"
-                ]) {
-                    sh '''
-                  
-                    docker-compose down -v
-                               
-                    docker-compose pull
-                    
-                    docker-compose up --build -d
+        stage('Clone Code') {
+            steps {
+                echo 'Cloning repository...'
+                sh '''
+                   git clone https://github.com/moshelederman/DevOPS--1114-git.git
+                   cd DevOPS--1114-git
+                   cd docker-gif-new || exit 1
+                   ls -la
                 '''
             }
         }
-    }
-}
+        stage('Build') {
+            steps {
+                echo 'Building the project...'
+                dir('DevOPS--1114-git/docker-gif-new') {
+                    withCredentials([string(credentialsId: 'MYSQL_ROOT_PASSWORD', variable: 'MYSQL_ROOT_PASSWORD'),
+                                     string(credentialsId: 'MYSQL_DATABASE', variable: 'MYSQL_DATABASE'),
+                                     string(credentialsId: 'MYSQL_USER', variable: 'MYSQL_USER'),
+                                     string(credentialsId: 'MYSQL_PASSWORD', variable: 'MYSQL_PASSWORD')]) {
+                        withEnv([
+                            "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}",
+                            "MYSQL_DATABASE=${MYSQL_DATABASE}",
+                            "MYSQL_USER=${MYSQL_USER}",
+                            "MYSQL_PASSWORD=${MYSQL_PASSWORD}"
+                        ]) {
+                            sh '''
+                                docker-compose down -v
+                                docker-compose pull
+                                docker-compose up --build -d
+                            '''
+                        }
+                    }
+                }
+            }
+        }     
         stage('Sleep') {
             steps {
                 echo 'Sleeping for 60 seconds...'
