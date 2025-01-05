@@ -23,17 +23,22 @@ pipeline {
                 '''
             }
         }
+
         stage('Build') {
-            steps {
-                echo 'Building the project...'
-                dir('DevOPS--1114-git/docker-gif-new') {
-                    withEnv([
-                        'MYSQL_ROOT_PASSWORD=example',
-                        'MYSQL_DATABASE=testdb',
-                        'MYSQL_USER=user',
-                        'MYSQL_PASSWORD=example'
-                    ]) {
-                        sh '''
+    steps {
+        echo 'Building the project...'
+        dir('DevOPS--1114-git/docker-gif-new') {
+            withCredentials([string(credentialsId: 'MYSQL_ROOT_PASSWORD', variable: 'MYSQL_ROOT_PASSWORD'),
+                             string(credentialsId: 'MYSQL_DATABASE', variable: 'MYSQL_DATABASE'),
+                             string(credentialsId: 'MYSQL_USER', variable: 'MYSQL_USER'),
+                             string(credentialsId: 'MYSQL_PASSWORD', variable: 'MYSQL_PASSWORD')]) {
+                withEnv([
+                    "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}",
+                    "MYSQL_DATABASE=${MYSQL_DATABASE}",
+                    "MYSQL_USER=${MYSQL_USER}",
+                    "MYSQL_PASSWORD=${MYSQL_PASSWORD}"
+                ]) {
+                    sh '''
                   
                     docker-compose down -v
                                
