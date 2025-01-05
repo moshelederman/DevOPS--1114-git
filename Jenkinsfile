@@ -9,7 +9,11 @@ pipeline {
         stage('Cleanup') {
             steps {
                 echo 'Cleaning up before cloning code...'
-                sh 'rm -rf DevOPS--1114-git'
+                sh '''
+                   if [ -d "DevOPS--1114-git" ]; then
+                       rm -rf DevOPS--1114-git
+                   fi
+                '''
             }
         }
         stage('Clone Code') {
@@ -27,10 +31,12 @@ pipeline {
             steps {
                 echo 'Building the project...'
                 dir('DevOPS--1114-git/docker-gif-new') {
-                    withCredentials([string(credentialsId: 'MYSQL_ROOT_PASSWORD', variable: 'MYSQL_ROOT_PASSWORD'),
-                                     string(credentialsId: 'MYSQL_DATABASE', variable: 'MYSQL_DATABASE'),
-                                     string(credentialsId: 'MYSQL_USER', variable: 'MYSQL_USER'),
-                                     string(credentialsId: 'MYSQL_PASSWORD', variable: 'MYSQL_PASSWORD')]) {
+                    withCredentials([
+                        string(credentialsId: 'MYSQL_ROOT_PASSWORD', variable: 'MYSQL_ROOT_PASSWORD'),
+                        string(credentialsId: 'MYSQL_DATABASE', variable: 'MYSQL_DATABASE'),
+                        string(credentialsId: 'MYSQL_USER', variable: 'MYSQL_USER'),
+                        string(credentialsId: 'MYSQL_PASSWORD', variable: 'MYSQL_PASSWORD')
+                    ]) {
                         withEnv([
                             "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}",
                             "MYSQL_DATABASE=${MYSQL_DATABASE}",
@@ -46,7 +52,7 @@ pipeline {
                     }
                 }
             }
-        }     
+        }
         stage('Sleep') {
             steps {
                 echo 'Sleeping for 60 seconds...'
@@ -56,7 +62,22 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Running tests...'
-                sh 'curl http://localhost:5000'  
+                script {
+                    def isServiceAvailable = false
+                    for (int i = 0; i < 5; i++) {
+                        try {
+                            sh 'curl -f http://localhost:5000'
+                            isServiceAvailable = true
+                            break
+                        } catch (Exception e) {
+                            echo 'Service not available, retrying...'
+                            sleep 10
+                        }
+                    }
+                    if (!isServiceAvailable) {
+                        error 'Service not available after multiple retries.'
+                    }
+                }
             }
         }
         stage('Deploy') {
@@ -64,11 +85,11 @@ pipeline {
                 echo 'Deploying application...'
                 dir('DevOPS--1114-git/docker-gif-new') {
                     sh '''
-                    if [ -f ./deploy_script.sh ]; then
-                        ./deploy_script.sh
-                    else
-                        echo "Deploy script not found, skipping..."
-                    fi
+                        if [ -f ./deploy_script.sh ]; then
+                            ./deploy_script.sh
+                        else
+                            echo "Deploy script not found, skipping..."
+                        fi
                     '''
                 }
             }
